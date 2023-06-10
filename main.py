@@ -1,13 +1,14 @@
 import cv2
 from cvzone.HandTrackingModule import HandDetector
 import socket
+import time
 
 width, height = 1280,720
 
 cap = cv2.VideoCapture(0)
 cap.set(3,width)
 cap.set(4,height)
-
+pTime = 0
 
 
 #Hand detector
@@ -28,16 +29,21 @@ while True:
         hand = hands[0]
         lmList = hand['lmList']
 
-        print(lmList)
+
         for lm in lmList:
             data.extend([lm[0],height- lm[1], lm[2]])
+
+       # lm = lmList[8]
+        #data.extend([lm[0], height - lm[1], lm[2]])
 
         print(data)
         sock.sendto(str.encode(str(data)),serverAddressPort)
 
-
-
-
+    cTime = time.time()
+    fps = 1 / (cTime - pTime)
+    pTime = cTime
+    cv2.putText(flip_img, f'FPS: {int(fps)}', (40, 50), cv2.FONT_HERSHEY_COMPLEX,
+                1, (255, 0, 0), 3)
 
 
     cv2.imshow("Image",flip_img)
