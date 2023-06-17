@@ -12,7 +12,7 @@ pTime = 0
 
 
 #Hand detector
-detector = HandDetector(maxHands=2, detectionCon=0.2)
+detector = HandDetector(maxHands=2, detectionCon=0.5)
 
 #unity communicate
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
