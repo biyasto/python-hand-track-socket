@@ -2,7 +2,7 @@ import cv2
 from cvzone.PoseModule import PoseDetector
 import time
 
-width, height = 1280,720
+width, height = 720,1920
 
 cap = cv2.VideoCapture(0)
 cap.set(3,width)
@@ -28,9 +28,10 @@ while True:
     cTime = time.time()
     fps = 1 / (cTime - pTime)
     pTime = cTime
-    cv2.putText(img, f'FPS: {int(fps)}', (40, 50), cv2.FONT_HERSHEY_COMPLEX,
+    #cv2.putText(img, f'FPS: {int(fps)}', (40, 50), cv2.FONT_HERSHEY_COMPLEX,
+     #           1, (255, 0, 0), 3)
+    cv2.putText(img, f'Pose: House', (40, 50), cv2.FONT_HERSHEY_COMPLEX,
                 1, (255, 0, 0), 3)
-
     print(fps)
 
     cv2.imshow("Image", img)

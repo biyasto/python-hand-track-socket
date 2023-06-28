@@ -28,6 +28,15 @@ draw = mp.solutions.drawing_utils
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
 serverAddressPort = ("127.0.0.1", 5052)
 
+import mediapipe as mp
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
+
+# STEP 2: Create an GestureRecognizer object.
+base_options = python.BaseOptions(model_asset_path='gesture_recognizer.task')
+options = vision.GestureRecognizerOptions(base_options=base_options)
+recognizer = vision.GestureRecognizer.create_from_options(options)
+
 pTime=0
 while True:
 
@@ -39,7 +48,7 @@ while True:
 
 	rgb = cv2.cvtColor(frm, cv2.COLOR_BGR2RGB)
 
-	op = face.process(rgb)
+	op = recognizer.process(rgb)
 	if op.multi_face_landmarks:
 		for i in op.multi_face_landmarks:
 			#print(i.landmark[8])
